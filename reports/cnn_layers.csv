@@ -1,0 +1,15 @@
+layer,output_shape,params
+input_layer_1,"(None, 224, 224, 3)",0
+rescaling,"(None, 224, 224, 3)",0
+conv2d,"(None, 224, 224, 32)",896
+batch_normalization,"(None, 224, 224, 32)",128
+max_pooling2d,"(None, 112, 112, 32)",0
+conv2d_1,"(None, 112, 112, 64)",18496
+batch_normalization_1,"(None, 112, 112, 64)",256
+max_pooling2d_1,"(None, 56, 56, 64)",0
+conv2d_2,"(None, 56, 56, 128)",73856
+batch_normalization_2,"(None, 56, 56, 128)",512
+max_pooling2d_2,"(None, 28, 28, 128)",0
+global_average_pooling2d,"(None, 128)",0
+dropout,"(None, 128)",0
+dense,"(None, 1)",129
