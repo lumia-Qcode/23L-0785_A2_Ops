@@ -19,8 +19,15 @@ app = Flask(__name__)
 def health():
     return jsonify(status="ok", model=MODEL_NAME, version=MODEL_VERSION)
 
-@app.post("/predict")
+@app.get("/")
+def index():
+    return jsonify(service="VisionGuard model API", model=MODEL_NAME, version=MODEL_VERSION,
+                   endpoints={"GET /health": "status", "POST /predict": "send an image in form field 'file' with header X-API-Key"})
+
+@app.route("/predict", methods=["GET", "POST"])
 def predict():
+    if request.method == "GET":
+        return jsonify(message="Send a POST request with header X-API-Key and an image in form field 'file'."), 200
     if not hmac.compare_digest(request.headers.get("X-API-Key", ""), API_KEY):
         return jsonify(error="unauthorized"), 401
     f = request.files.get("file")
